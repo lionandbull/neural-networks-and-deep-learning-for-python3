@@ -32,6 +32,7 @@ class Network(object):
 		if test_data: 
 			n_test = len(test_data)
 		n = len(training_data)
+		print("Parameter Info: " + "epochs: " + str(epochs) + ", hidden-unit: " + str(mini_batch_size) + ", eta: " + str(eta) + ".")
 		for j in range(epochs):
 			random.shuffle(training_data)        #rearrange the training_data randomly
 			mini_batches = [ training_data[k:k + mini_batch_size]
@@ -39,7 +40,8 @@ class Network(object):
 			for mini_batch in mini_batches:
 				self.update_mini_batch(mini_batch,eta)
 			if test_data:
-				print("Epoch {0}: {1} / {2}".format(j,self.evaluate(test_data),n_test))
+				if j == epochs - 1:
+					print("Epoch {0}: {1} / {2}".format(j,self.evaluate(test_data),n_test))
 			else:
 				print("Epoch {0} complete".format(j))
 			
@@ -122,6 +124,31 @@ import sys
 sys.path.append("../")
 
 import mnist_loader
+
 training_data, validation_data, test_data = mnist_loader.load_data_wrapper()
-net = Network([784, 30, 10])
-net.SGD(training_data, 30, 10, 3.0, test_data=test_data)
+
+print(training_data[0][0])
+# print(test_data[0].shape)
+
+# net = Network([784, 30, 10])
+# net.SGD(training_data, 30, 10, 3.0, test_data=test_data)
+
+# for i in range(3):
+# 	net.SGD(training_data, 30, 10, 1.0, test_data=test_data)
+# 	print("-----------------")
+# for i in range(3):
+# 	net.SGD(training_data, 10, 10, 3.0, test_data=test_data)
+# 	print("-----------------")
+# print("-----------------------------------------------")
+# for i in range(3):
+# 	net.SGD(training_data, 20, 10, 3.0, test_data=test_data)
+# 	print("-----------------")
+# print("-----------------------------------------------")
+# for i in range(3):
+# 	net.SGD(training_data, 30, 10, 3.0, test_data=test_data)
+# 	print("-----------------")
+# print("-----------------------------------------------")
+# for i in range(3):
+# 	net.SGD(training_data, 40, 10, 3.0, test_data=test_data)
+# 	print("-----------------")
+# print("-----------------------------------------------")
